@@ -12,7 +12,10 @@
   },
   "dependencies": {
     "express": "*",
-    "node-jsx": "*"
+    "node-jsx": "*",
+    "ejs": "*",
+    "path": "*",
+    "react": "*"
   },
   "keywords": [
     "foursquare",
