@@ -7,4 +7,3 @@
 	<?php endif ?>
 	<div id="home-button" class="header-button">Home</div>
 </div>
-<?php print_r($_COOKIE) ?>
