@@ -1,7 +1,8 @@
 $(document).ready(function() {
 	var loginButton = $('div#login-button');
 	var logoutButton = $('div#logout-button');
-	var profileButton = $('div#profile-button');
+	var myProfileButton = $('div#my-profile-button');
+	var homeButton = $('div#home-button');
 
 	if  (loginButton) {
 		loginButton.click(function() {
@@ -12,14 +13,18 @@ $(document).ready(function() {
 
 	if  (logoutButton) {
 		logoutButton.click(function() {
-    		document.cookie = name + "logged-in-user=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    		document.cookie = "logged-in-user=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
 			location.reload();
 		});
 	}
 
-	if  (profileButton) {
-		profileButton.click(function() {
-			alert("Viewing profile");
+	if  (myProfileButton) {
+		myProfileButton.click(function() {
+			window.location = '/foursquare/profile'
 		});
 	}
+
+	homeButton.click(function() {
+		window.location = '/foursquare'
+	});
 });
