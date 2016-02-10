@@ -5,8 +5,8 @@ $(document).ready(function() {
 	var homeButton = $('div#home-button');
 
 	if  (loginButton) {
-		loginButton.click(function() 
-			$.cookie("logged-in-user", 'sdf938s9f892032', { path: '/' });
+		loginButton.click(function() {
+			$.cookie("logged-in-user", "sdf938s9f892032", { path: '/' });
 			location.reload();
 		});
 	}
