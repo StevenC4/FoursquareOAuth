@@ -1,0 +1,23 @@
+# Text colors
+
+body {
+	margin: 0;
+	color: #051838;
+}
+
+div#header {
+	display: inline-block;
+	width: 100%;
+}
+
+div.header-button {
+	display: inline-block;
+	padding: 25px;
+	float: right;
+	cursor: pointer;
+}
+
+div.header-button:hover {
+	background-color: #7688A9;
+	color: white;
+}
