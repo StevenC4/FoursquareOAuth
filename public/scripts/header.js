@@ -6,14 +6,16 @@ $(document).ready(function() {
 
 	if  (loginButton) {
 		loginButton.click(function() {
-			document.cookie = "logged-in-user=sdf938s9f892032";
+			//document.cookie = "logged-in-user=sdf938s9f892032";
+			$.cookie("logged-in-user", 'sdf938s9f892032', { path: '/' });
 			location.reload();
 		});
 	}
 
 	if  (logoutButton) {
 		logoutButton.click(function() {
-    		document.cookie = "logged-in-user=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    		//document.cookie = "logged-in-user=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+			$.removeCookie("logged-in-user", { path: '/' });
 			location.reload();
 		});
 	}
