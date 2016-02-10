@@ -5,13 +5,15 @@ $(document).ready(function() {
 
 	if  (loginButton) {
 		loginButton.click(function() {
-			alert("Logging in");
+			document.cookie = "logged-in-user=sdf938s9f892032";
+			location.reload();
 		});
 	}
 
 	if  (logoutButton) {
 		logoutButton.click(function() {
-			alert("Logging out");
+    		document.cookie = name + "logged-in-user=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+			location.reload();
 		});
 	}
 
