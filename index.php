@@ -8,10 +8,14 @@
 </head>
 <body>
 <div id="header">
-	<?php if (isset($_COOKEIS['logged-in-user'])): ?>
+	<?php setcookie("logged-in-user","red"); ?>
+	<?php if (isset($_COOKIE['logged-in-user'])): ?>
+	<div id="logout-button" class="header-button">Logout</div>
+	<div id="profile-button" class="header-button">Profile</div>
 	<?php else: ?>
-	<div class="header-button">Login</div>
+	<div id="login-button" class="header-button">Login</div>
 	<?php endif ?>
+	<?php  unset($_COOKIE['logged-in-user']) ?>
 </div>
 </body>
 </html>
