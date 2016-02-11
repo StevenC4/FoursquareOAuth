@@ -7,6 +7,7 @@ $(document).ready(function() {
 
 	var url = window.location.href;
 	var regex = /\#(?:access_token)\=([\S\s]*?)(\&)?$/
+	console.log(window.location.hash)
 	if (url.match(regex) && url.match(regex).length >= 2 && url.match(regex)[1] != '') {
 		var access_token = url.match(regex)[1];
 		$.cookie('logged-in-user', access_token, {path: '/'});
@@ -16,6 +17,7 @@ $(document).ready(function() {
 		console.log(url.match(regexUrl));
 		console.log(newUrl);
 		window.history.pushState("object or string", "Title", newUrl);
+		location.reload();
 	}
 
 	if  (loginButton) {
@@ -43,8 +45,9 @@ $(document).ready(function() {
 	}
 
 	if  (myProfileButton) {
+		var userId = myProfileButton.data('user-id');
 		myProfileButton.click(function() {
-			window.location = '/foursquare/profile'
+			window.location = '/foursquare/profile/?id=' + userId;
 		});
 	}
 

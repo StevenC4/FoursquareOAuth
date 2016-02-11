@@ -26,3 +26,46 @@ div.header-button {
 div.header-button:hover {
 	background-color: #4D648D;
 }
+
+div.home-users-list {
+	text-align: center;
+	margin: 50px;
+}
+
+div.home-users-list h1 {
+	font-weight: bold;
+	font-size: 36px;
+}
+
+div.home-users-list a {
+	font-size: 24px;
+	font-weight: bold;
+	margin-top: 25px;
+	display: block;
+	text-decoration: none;
+	color: blue;
+}
+
+div.profile-page {
+	text-align: center;
+}
+
+div.profile-page h1 {
+	font-weight: bold;
+	font-size: 36px;
+	margin-top: 36px;	
+}
+
+div.profile-page table {
+	margin: 25px auto 0;
+	text-align: left;
+}
+
+div.profile-page table tr {
+	border: 1px solid black;
+}
+
+div.profile-page table tr td {
+	padding: 8px 15px;
+}
+
