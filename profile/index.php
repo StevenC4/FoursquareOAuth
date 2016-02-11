@@ -29,7 +29,20 @@ include '../components/head.php';
 			$userInfo = $users[$id];
 		}
 	}
-	if (!is_null($userInfo)): ?>
+	if (!is_null($userInfo)): 
+
+		$authToken = $userInfo['Auth Token'];
+		$url = "https://api.foursquare.com/v2/users/" . $id . "/checkins?oauth_token=" . $authToken . "&v=20160210";
+		$ch = curl_init();
+		curl_setopt_array($ch,  array(
+			CURLOPT_URL => $url,
+			CURLOPT_RETURNTRANSFER => 1,
+			CURLOPT_SSL_VERIFYPEER => false
+		));
+		$checkinsObject = json_decode(curl_exec($ch));
+		curl_close($ch);
+
+	?>
 	<h1><?= $userInfo['First Name'] . " " . (isset($userInfo['Last Name']) ? $userInfo['Last Name'] : "") ?>'s User Info</h1>
 	<table>
 		<tbody>
@@ -42,56 +55,56 @@ include '../components/head.php';
 	</table>
 	
 	<h1>Latest Checkin</h1>
+	<?php 
+		$numCheckins = $checkinsObject->response->checkins->count;
+		$checkinsObject = $checkinsObject->response->checkins->items;
+		$checkins = array();
+		for ($i = 0; $i < $numCheckins; $i++) {
+			$checkin = array();
+			$checkinObject = $checkinsObject[$i];
+
+			if ($checkinObject->venue->name) $checkin['Venue Name'] = $checkinObject->venue->name;
+			if ($checkinObject->createdAt) {
+				$date = new DateTime();
+				$date->setTimestamp($checkinObject->createdAt);
+				$date->setTimezone(new DateTimeZone('MST'));
+				$checkin['Date'] = $date->format('m/d/Y');
+				$checkin['Time'] = $date->format('H:i:s');
+			}
+			if ($checkinObject->venue->location->address) $checkin['Address'] = $checkinObject->venue->location->address;
+			if ($checkinObject->venue->location->postalCode) $checkin['ZIP'] = $checkinObject->venue->location->postalCode;
+			if ($checkinObject->venue->location->city) $checkin['City'] = $checkinObject->venue->location->city;
+			if ($checkinObject->venue->location->state) $checkin['State'] = $checkinObject->venue->location->state;
+			if ($checkinObject->venue->location->country) $checkin['Country'] = $checkinObject->venue->location->country;
+
+			array_push($checkins, $checkin);	
+		}
+
+	if (!empty($checkins)): ?>
 	<table>
 		<tbody>
-		<?php 
-		$latestCheckin = $userInfo['Latest Checkin'];
-		foreach ($latestCheckin as $name => $value): ?>
+		<?php foreach ($checkins[0] as $name => $value): ?>
 			<tr><td><?= $name ?></td><td><?= $value ?></td></tr>
 		<?php endforeach; ?>
 		</tbody>
 	</table>
 
-	<?php if (isset($_COOKIE['logged-in-user']) && $userInfo['Auth Token'] == $_COOKIE['logged-in-user']): 
-		$authToken = $_COOKIE['logged-in-user'];
-		$url = "https://api.foursquare.com/v2/users/" . $id . "/checkins?oauth_token=" . $authToken . "&v=20160210";
-		$ch = curl_init();
-		curl_setopt_array($ch,  array(
-			CURLOPT_URL => $url,
-			CURLOPT_RETURNTRANSFER => 1,
-			CURLOPT_SSL_VERIFYPEER => false
-		));
-		$data = json_decode(curl_exec($ch));
-		curl_close($ch);
-		echo "<pre>";
+	<?php endif;
+	if (isset($_COOKIE['logged-in-user']) && $userInfo['Auth Token'] == $_COOKIE['logged-in-user']): 
+		
 		// print_r($data->response->checkins);
 	?>
 	<h1>Checkins</h1>
-	<?php for ($i = 0; $i < $data->response->checkins->count; $i++): ?>
+	<?php foreach ($checkins as $i => $checkin): ?>
 	<table>
 		<tbody>
 		<?php 
-		$checkinData = $data->response->checkins->items[$i];
-		$checkin = array();
-		if ($checkinData->venue->name) $checkin['Venue Name'] = $checkinData->venue->name;
-		if ($checkinData->createdAt) {
-			$date = new DateTime();
-			$date->setTimestamp($checkinData->createdAt);
-			$date->setTimezone(new DateTimeZone('MST'));
-			$checkin['Date'] = $date->format('m/d/Y');
-			$checkin['Time'] = $date->format('H:i:s');
-		}
-		if ($checkinData->venue->location->address) $checkin['Address'] = $checkinData->venue->location->address;
-		if ($checkinData->venue->location->postalCode) $checkin['ZIP'] = $checkinData->venue->location->postalCode;
-		if ($checkinData->venue->location->city) $checkin['City'] = $checkinData->venue->location->city;
-		if ($checkinData->venue->location->state) $checkin['State'] = $checkinData->venue->location->state;
-		if ($checkinData->venue->location->country) $checkin['Country'] = $checkinData->venue->location->country;
 		foreach ($checkin as $name => $value): ?>
 			<tr><td><?= $name ?></td><td><?= $value ?></td></tr>
 		<?php endforeach; ?>
 		</tbody>
 	</table>
-	<?php endfor ?>
+	<?php endforeach ?>
 
 	<?php endif; ?>
 	<?php else: ?>
