@@ -9,7 +9,9 @@ include 'components/head.php';
 	<?php 
 	include 'components/header.php';
 	include 'components/login.php';
-	$users = unserialize(file_get_contents($filepath)); ?>
+	$users = unserialize(file_get_contents($filepath));
+	?>
+
 	<div class="home-users-list">
 		<h1>Users</h1>
 		<?php foreach ($users as $id => $userInfo): ?>

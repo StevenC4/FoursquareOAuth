@@ -13,9 +13,6 @@
 			$data = json_decode(curl_exec($ch));
 			curl_close($ch);
 
-			echo "<pre>";
-			// print_r($data);
-
 			if (file_exists($filepath)) {
 				$users = unserialize(file_get_contents($filepath));
 			} else {
