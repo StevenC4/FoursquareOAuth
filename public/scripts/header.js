@@ -1,6 +1,5 @@
 $(document).ready(function() {
 	var loginButton = $('div#login-button');
-	var createAccountButton = $('div#create-account-button');
 	var logoutButton = $('div#logout-button');
 	var myProfileButton = $('div#my-profile-button');
 	var homeButton = $('div#home-button');
@@ -28,12 +27,6 @@ $(document).ready(function() {
     				'&redirect_uri=' + window.location;
 
 			window.location = loginUrl;
-		});
-	}
-
-	if  (createAccountButton) {
-		createAccountButton.click(function() {
-			location.reload();
 		});
 	}
 
