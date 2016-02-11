@@ -13,9 +13,7 @@ include 'components/head.php';
 	<div class="home-users-list">
 		<h1>Users</h1>
 		<?php foreach ($users as $id => $userInfo): ?>
-			<a href='/foursquare/profile/?id=<?= $id ?>'>
-				<?= $userInfo['First Name'] . " " . (isset($userInfo['Last Name']) ? $userInfo['Last Name'] : "") ?>
-			</a>
+		<a href='/foursquare/profile/?id=<?= $id ?>'><?= $userInfo['First Name'] . " " . (isset($userInfo['Last Name']) ? $userInfo['Last Name'] : "") ?></a>
 		<?php endforeach; ?>
 	</div>
 </body>
